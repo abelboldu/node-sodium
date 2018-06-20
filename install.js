@@ -339,10 +339,18 @@ function isPreInstallMode() {
 
 // Start
 if (os.platform() !== 'win32') {
-    if (isPreInstallMode()) {
-        run('make libsodium');
+    if (os.platform() == 'freebsd') {
+        if (isPreInstallMode()) {
+            run('gmake libsodium');
+        } else {
+            run('gmake nodesodium');
+        }
     } else {
-        run('make nodesodium');
+        if (isPreInstallMode()) {
+            run('make libsodium');
+        } else {
+            run('make nodesodium');
+        }
     }
 } else {
     checkMSVSVersion();
